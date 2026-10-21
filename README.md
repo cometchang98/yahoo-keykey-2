@@ -115,8 +115,9 @@ rm -rf ~/Library/HTTPStorages/com.dragonapp.inputmethod.yahoo-keykey
   - **倉頡 (Cangjie)** — the classic radical method, with `*` as a wildcard for when you cannot
     remember every radical.
   - **速成 (Simplex)** — 倉頡's shorthand: just the first and last radical.
-  - **注音 (Zhuyin, ㄅ半)** — the classic phonetic method, one character at a time. 標準 (大千) and
-    倚天 keyboards.
+  - **注音 (Zhuyin)** — the classic phonetic method. 標準 (大千), 倚天 and 許氏 (Hsu) keyboards, with
+    **智慧選字** (whole-sentence input, the language model picks the characters) on by default, or the
+    one-character-at-a-time ㄅ半 when it is turned off.
   - **拼音 (Pinyin)** — builds whole phrases from pinyin without tones.
 - **Candidates that learn, or stay put** — by default the characters you pick move up the list.
   Turn **依選字習慣調整候選字順序** off in Settings and the built-in order stands, in all four
@@ -151,7 +152,7 @@ Sources** (Chinese, Traditional), so add only the ones you use and switch betwee
 |---|---|---|
 | **倉頡** (Cangjie) | 倉頡 radicals on the letter keys; `*` is a wildcard | **倉頡版本** — 五代 or 三代 |
 | **速成** (Simplex) | the first and last radical of a character's 倉頡 code | follows **倉頡版本** |
-| **注音** (Zhuyin, ㄅ半) | 注音 symbols, then a tone — one character at a time | **注音鍵盤** — 大千 or 倚天 |
+| **注音** (Zhuyin) | 注音 symbols, then a tone — a whole sentence (智慧選字) or one character at a time (ㄅ半) | **注音鍵盤** — 大千, 倚天 or 許氏 · **智慧選字** |
 | **拼音** (Pinyin) | pinyin without tones — whole phrases at once | — |
 
 繁 → 簡, full-width punctuation, 反查提示 and **依選字習慣調整候選字順序** apply to all four.
@@ -205,6 +206,19 @@ disambiguation rules this mode does not have.
 Candidates come from the original Yahoo! KeyKey ㄅ半 table (`bpmf-ext.cin`), in its own order —
 the everyday character for a reading leads it, and there is no dictionary re-ranking on top. What
 you pick is then learned per reading, the same way 倉頡 learns per code.
+
+### 許氏 (Hsu) and 智慧選字
+
+**許氏** is the 26-letter 注音 keyboard: one key stands for several symbols (`m` is ㄇ or ㄢ, `j` is
+ㄐ, ㄓ or the fourth tone) and the symbol is decided by the keys around it. Space is the first tone;
+the other tones are `d` ˊ · `f` ˇ · `j` ˋ · `s` ˙. The reading rules are a port of McBopomofo's.
+
+With **智慧選字** on (設定… ▸ 一般, or the input menu while 注音 is active) a tone ends each
+syllable, so type a whole sentence — `jen tem tem vej hnf hwf` (Space is the first tone) becomes
+今天天氣很好 — and the language model chooses the characters. ← → move between words (the word the
+cursor is on is underlined), 1–9 swap it for another candidate, Space or Return commits the
+sentence. Tones must be typed: a syllable without one stays as 注音. On 大千 and 倚天 the number keys
+are 注音 keys, so candidates are picked with the arrows and Space instead.
 
 ### 拼音 (Pinyin)
 
