@@ -2,6 +2,27 @@
 
 A plain-language list of changes in each version, newest first.
 
+## Unreleased
+
+- **Added: 許氏 (Hsu) keyboard for 注音.** The 26-letter layout, where one key stands for several
+  symbols and the neighbouring keys decide which (`m` is ㄇ or ㄢ, `j` is ㄐ, ㄓ or the fourth
+  tone). Space is the first tone; the other tones are `d` ˊ · `f` ˇ · `j` ˋ · `s` ˙. Pick it
+  beside 標準（大千） and 倚天, from the input menu or in 設定… ▸ 一般. The reading rules follow
+  McBopomofo's.
+- **Added: 智慧選字 for 注音 (whole-sentence input), on by default.** Type a sentence of 注音, ending
+  each syllable with its tone (Space for the first tone), and the language model picks the
+  characters, as the original Yahoo! KeyKey's 好打注音 did: `ㄋㄧˇ ㄏㄠˇ` becomes 你好 without
+  choosing either character. ← → move one character at a time and the character under the cursor
+  is underlined; the list offers the word the model chose, then every single character for that
+  syllable, then longer words — so one character of a word can be changed on its own (太長 →
+  太常). 1–9 pick, Space or Return commits the sentence. Characters you pick or accept are
+  remembered and lead next time. Turn it off in 設定… ▸ 一般 (or the input menu) to keep the
+  one-character-at-a-time ㄅ半. Nothing changes in 倉頡, 速成 or 拼音.
+- **Fixed: a plain `tools/build-app.sh` build no longer crashes at launch.** The ad-hoc signature
+  carried the hardened runtime, whose Library Validation refuses the equally ad-hoc
+  Sparkle.framework. Only debug builds avoided it. Notarized releases re-sign with the Developer
+  ID and are unaffected.
+
 ## 2.16.2
 
 - **Fixed: in 注音, a number key no longer disappears when the candidate window has nothing on its
