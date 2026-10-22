@@ -174,16 +174,18 @@ public final class SmartZhuyinEngine {
         return result
     }
 
-    /// What a commit right now would credit: each stretch the user pinned by hand, in the list for
-    /// its reading — so a character picked over and over rises to lead that reading's list. Words
-    /// the model chose by itself count for nothing, and neither does a reading with one choice.
+    /// What a commit right now would credit: every word of the sentence, in the list for its
+    /// reading — the one the user picked by hand AND the one they simply accepted. Counting only
+    /// hand picks made the character the user keeps taking as the default (是) fall behind one they
+    /// had to pick (氏) a few times, which is backwards. A reading with a single choice has no list
+    /// to reorder and credits nothing.
     public var pendingUsage: [CandidateUsage] {
         let readings = finishedReadings
-        return overrides.compactMap { pick in
-            guard pick.range.upperBound <= readings.count else { return nil }
-            let key = readings[pick.range].joined(separator: "-")
+        return nodes.compactMap { node in
+            guard node.readingRange.upperBound <= readings.count else { return nil }
+            let key = readings[node.readingRange].joined(separator: "-")
             guard index.unigrams(forKey: key).count > 1 else { return nil }
-            return CandidateUsage(list: .zhuyin(reading: key), candidate: pick.value)
+            return CandidateUsage(list: .zhuyin(reading: key), candidate: node.chosenText)
         }
     }
 

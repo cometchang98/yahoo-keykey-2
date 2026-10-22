@@ -151,9 +151,36 @@ final class SmartZhuyinEngineTests: XCTestCase {
         XCTAssertEqual(second.composingText, "氏", "what the user picked now leads")
     }
 
-    func testAWordTheModelChoseItselfCreditsNothing() {
+    func testAcceptingTheDefaultCountsAsMuchAsPickingIt() {
+        var counts: [String: Int] = [:]
+        let lm = "ㄕˋ 是 -2.0\nㄕˋ 氏 -4.0"
+        func make() -> SmartZhuyinEngine {
+            SmartZhuyinEngine(index: TonelessLanguageModelIndex(text: lm, keepTones: true), layout: .hsu,
+                              usageCount: { _, candidate in counts[candidate, default: 0] })
+        }
+        func commitCrediting(_ e: SmartZhuyinEngine) {
+            for usage in e.pendingUsage { counts[usage.candidate, default: 0] += 1 }
+            e.commit()
+        }
+        for _ in 0..<3 {                                                   // 是, accepted as the default
+            let e = make()
+            type("cj", into: e)
+            commitCrediting(e)
+        }
+        let picked = make()
+        type("cj", into: picked)
+        picked.selectCandidate(picked.candidates.firstIndex(of: "氏")!)   // 氏, once, by hand
+        commitCrediting(picked)
+        XCTAssertEqual(counts["是"], 3)
+        XCTAssertEqual(counts["氏"], 1)
+        let next = make()
+        type("cj", into: next)
+        XCTAssertEqual(next.composingText, "是", "three accepted 是 outweigh one picked 氏")
+    }
+
+    func testAReadingWithOneChoiceCreditsNothing() {
         let e = engine()
-        type("nefhwf", into: e)
+        type("nefhwf", into: e)                    // 你好: a single word, nothing to reorder
         XCTAssertTrue(e.pendingUsage.isEmpty)
     }
 }
