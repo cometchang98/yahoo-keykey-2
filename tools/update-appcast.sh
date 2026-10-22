@@ -13,7 +13,7 @@ OUT="${3:?missing output appcast path}"
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 GENERATE_APPCAST="$ROOT/build/sparkle/bin/generate_appcast"
-REPO="teddychan/yahoo-keykey-2"
+REPO="${KEYKEY_REPO:-teddychan/yahoo-keykey-2}"
 DL_BASE="https://github.com/$REPO/releases/download"
 
 test -x "$GENERATE_APPCAST" || { echo "ERROR: run tools/fetch-sparkle.sh first" >&2; exit 1; }
@@ -25,7 +25,7 @@ trap 'rm -rf "$WORK"' EXIT
 cp "$ZIP" "$WORK/"
 
 "$GENERATE_APPCAST" \
-  --download-url-prefix "$DL_BASE/v$VERSION/" \
+  --download-url-prefix "$DL_BASE/${KEYKEY_TAG:-v$VERSION}/" \
   --maximum-deltas 0 \
   -o "$OUT" \
   "$WORK"
