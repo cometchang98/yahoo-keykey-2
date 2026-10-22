@@ -215,9 +215,10 @@ the other tones are `d` ˊ · `f` ˇ · `j` ˋ · `s` ˙. The reading rules are 
 
 With **智慧選字** on (設定… ▸ 一般, or the input menu while 注音 is active) a tone ends each
 syllable, so type a whole sentence — `jen tem tem vej hnf hwf` (Space is the first tone) becomes
-今天天氣很好 — and the language model chooses the characters. ← → move between words (the word the
-cursor is on is underlined), 1–9 swap it for another candidate, Space or Return commits the
-sentence. Tones must be typed: a syllable without one stays as 注音. On 大千 and 倚天 the number keys
+今天天氣很好 — and the language model chooses the characters. ← → move between characters (the one the
+cursor is on is underlined; the model's word comes first in the list, then every single character for that
+syllable, so one character of a word can be changed on its own), 1–9 swap it for another candidate, Space or Return commits the
+sentence. Characters you pick by hand are remembered and lead next time. Tones must be typed: a syllable without one stays as 注音. On 大千 and 倚天 the number keys
 are 注音 keys, so candidates are picked with the arrows and Space instead.
 
 ### 拼音 (Pinyin)

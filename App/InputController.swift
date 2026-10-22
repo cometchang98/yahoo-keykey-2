@@ -104,7 +104,8 @@ final class InputController: IMKInputController {
                     // The index is resident only while a controller holds it (syncSmartIndexHold).
                     if Preferences.zhuyinSmartEnabled {
                         return SmartZhuyinEngine(index: shared.zhuyinSmartIndexOrEmpty,
-                                                 layout: layout, userRank: userRank)
+                                                 layout: layout, userRank: userRank,
+                                                 usageCount: usageCount)
                     }
                     return ZhuyinEngine(table: shared.zhuyinTable, layout: layout,
                                         usageCount: usageCount)

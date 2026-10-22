@@ -59,7 +59,8 @@ final class SmartZhuyinEngineTests: XCTestCase {
         let e = engine()
         type("xhfcj", into: e)                     // ㄨㄛˇ ㄕˋ
         XCTAssertEqual(e.composingText, "我是")
-        XCTAssertEqual(e.cursorReading, "ㄨㄛˇ ㄕˋ")
+        XCTAssertEqual(e.cursorReading, "ㄕˋ", "the cursor is on a syllable, not a word")
+        XCTAssertTrue(e.candidates.contains("我是"), "the word is still on offer from either syllable")
     }
 
     func testBackspaceReopensTheLastToneThenTheSyllable() {
@@ -98,19 +99,61 @@ final class SmartZhuyinEngineTests: XCTestCase {
         XCTAssertEqual(e.composingText, "你好")
     }
 
-    func testTheCursorWordIsMarkedOnlyOnceTheUserMovesBackOntoIt() {
+    func testTheCursorCharacterIsMarkedOnlyOnceTheUserMovesBackOntoIt() {
         let e = engine()
-        type("nefhwf", into: e)                    // 你好 — a single word on this small model
-        XCTAssertEqual(e.segments, [ComposingSegment(text: "你好", isCursor: false)],
+        type("xhfcj", into: e)                     // 我是 — one two-syllable word
+        XCTAssertEqual(e.segments, [ComposingSegment(text: "我是", isCursor: false)],
                        "typing at the end marks nothing")
-        let e2 = engine()
-        type("xhfcj", into: e2)
-        e2.selectCandidate(0)
-        type("cj", into: e2)                       // 我是 + 是: two words
-        XCTAssertTrue(e2.moveCursorLeft())
-        XCTAssertEqual(e2.segments.filter(\.isCursor).count, 1)
-        XCTAssertEqual(e2.segments.firstIndex(where: \.isCursor), 0)
-        type("cj", into: e2)                       // typing again returns to the end
-        XCTAssertTrue(e2.segments.allSatisfy { !$0.isCursor })
+        XCTAssertTrue(e.moveCursorLeft())
+        XCTAssertEqual(e.segments, [ComposingSegment(text: "我", isCursor: true),
+                                    ComposingSegment(text: "是", isCursor: false)],
+                       "inside a word, only the character under the cursor is marked")
+        type("cj", into: e)                        // typing goes on at the end again
+        XCTAssertTrue(e.segments.allSatisfy { !$0.isCursor })
+    }
+
+    // The reported case: the model joins 太長 into one word, but 長 must still be correctable to 常.
+    func testACharacterInsideAWordCanBeChangedOnItsOwn() {
+        let lm = """
+        ㄊㄞˋ 太 -2.0
+        ㄔㄤˊ 長 -2.8
+        ㄔㄤˊ 常 -3.0
+        ㄊㄞˋ-ㄔㄤˊ 太長 -3.5
+        """
+        let e = SmartZhuyinEngine(index: TonelessLanguageModelIndex(text: lm, keepTones: true), layout: .hsu)
+        // ㄊㄞˋ ㄔㄤˊ on 許氏: t i j / v k d
+        type("tij", into: e); type("vkd", into: e)
+        XCTAssertEqual(e.composingText, "太長")
+        XCTAssertTrue(e.moveCursorLeft())
+        XCTAssertTrue(e.moveCursorRight())         // back onto 長
+        XCTAssertEqual(e.segments.first(where: \.isCursor)?.text, "長")
+        let choices = e.candidates
+        let index = try! XCTUnwrap(choices.firstIndex(of: "常"))
+        e.selectCandidate(index)
+        XCTAssertEqual(e.composingText, "太常")
+    }
+
+    func testAPinnedCharacterIsRememberedAndLeadsNextTime() {
+        var counts: [String: Int] = [:]
+        let lm = "ㄕˋ 是 -2.0\nㄕˋ 氏 -4.0"
+        func make() -> SmartZhuyinEngine {
+            SmartZhuyinEngine(index: TonelessLanguageModelIndex(text: lm, keepTones: true), layout: .hsu,
+                              usageCount: { _, candidate in counts[candidate, default: 0] })
+        }
+        let first = make()
+        type("cj", into: first)
+        XCTAssertEqual(first.composingText, "是")
+        first.selectCandidate(first.candidates.firstIndex(of: "氏")!)
+        for usage in first.pendingUsage { counts[usage.candidate, default: 0] += 1 }
+        XCTAssertEqual(first.pendingUsage.map(\.candidate), ["氏"])
+        let second = make()
+        type("cj", into: second)
+        XCTAssertEqual(second.composingText, "氏", "what the user picked now leads")
+    }
+
+    func testAWordTheModelChoseItselfCreditsNothing() {
+        let e = engine()
+        type("nefhwf", into: e)
+        XCTAssertTrue(e.pendingUsage.isEmpty)
     }
 }
