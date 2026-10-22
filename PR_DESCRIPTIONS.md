@@ -117,24 +117,19 @@ Then, by hand, in 注音:
 4. `,` and `.` stay punctuation. `1`–`9` pick a candidate, because those keys are not 注音 keys on 許氏.
 5. Switch back to 大千 and confirm `su3` is still ㄋㄧˇ.
 
-### Screenshots / examples
+### Screenshots
 
-Placeholder — the picker:
+Real macOS screenshots of the owner's `upstream-pr` build. 許氏, one character at a time: `nef` → ㄋㄧˇ → 你, `hwf` → ㄏㄠˇ → 好, `cj` → ㄕˋ → 是. The candidate window is the bundled ㄅ半 list, with 倉頡 hints beside each character.
 
-```
-設定… ▸ 一般 ▸ 注音鍵盤
-  ○ 標準（大千）
-  ○ 倚天 (ETen)
-  ● 許氏 (Hsu)
-```
+![許氏：ㄋㄧˇ，候選你、妳、擬](https://raw.githubusercontent.com/cometchang98/yahoo-keykey-2/pr-notes/docs/pr-screenshots/hsu-ni.png)
 
-Placeholder — marked text, one character at a time:
+![許氏：ㄏㄠˇ，候選好、郝](https://raw.githubusercontent.com/cometchang98/yahoo-keykey-2/pr-notes/docs/pr-screenshots/hsu-hao.png)
 
-```
-nef  →  ㄋㄧˇ  →  你
-hwf  →  ㄏㄠˇ  →  好
-cj   →  ㄕˋ   →  是
-```
+![許氏：ㄕˋ，候選是、事、市，第 1/7 頁](https://raw.githubusercontent.com/cometchang98/yahoo-keykey-2/pr-notes/docs/pr-screenshots/hsu-shi.png)
+
+The input menu with 許氏鍵盤 checked. That build also has 智慧選字 turned on, so the menu shows a check on 智慧選字（整句） as well. That item is not part of this PR.
+
+![輸入選單：許氏鍵盤已勾選](https://raw.githubusercontent.com/cometchang98/yahoo-keykey-2/pr-notes/docs/pr-screenshots/input-menu.png)
 
 ### Credit
 
@@ -184,26 +179,17 @@ Then, by hand:
 4. Space or Return commits the sentence. Turning the setting off returns to ㄅ半 immediately, including in other apps the input method is loaded into.
 5. On 大千 and 倚天 the number keys are 注音 keys, so candidates are picked with the arrows and Space, not with 1–9.
 
-### Screenshots / examples
+### Screenshots
 
-Placeholder — the setting, off:
+Real macOS screenshot of the owner's `upstream-pr` build, taken with 智慧選字 **turned on**. This branch ships the option **off** by default; the picture shows what you get after opting in, not the first-launch state.
 
-```
-設定… ▸ 一般
-  注音鍵盤          標準（大千）
-  注音智慧選字（整句）   ☐     ← off until the user opts in
-```
+Marked text 太長作這件事, cursor on 長 (underlined). The list for ㄔㄤˊ is 1 太長, 2 常, 3 長, so one character of the word can be changed on its own (太長 → 太常).
 
-Placeholder — cursor correction (太長 → 太常):
+![智慧選字：游標在「長」，候選太長、常、長](https://raw.githubusercontent.com/cometchang98/yahoo-keykey-2/pr-notes/docs/pr-screenshots/smart-taichang.png)
 
-```
-許氏 keys:  tij vkd
-marked:     太長
-← onto 長:  太[長]          candidates: 長, 常, …
-pick 常:    太常
-```
+The same build's input menu, with 智慧選字（整句） checked because the option was on for the screenshot. A fresh install of this branch leaves that item unchecked until the user turns it on.
 
-Placeholder — the underlined character in the marked text. A screenshot of TextEdit with 長 drawn in the selected-clause style (thick underline) and 常 in the candidate window would show the same thing.
+![輸入選單：這張 upstream-pr 截圖裡智慧選字是開的；這支分支的預設是關](https://raw.githubusercontent.com/cometchang98/yahoo-keykey-2/pr-notes/docs/pr-screenshots/input-menu.png)
 
 ### Credit
 
