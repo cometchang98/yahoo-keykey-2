@@ -200,8 +200,8 @@ next character's first symbol commits the one on screen so you can run on withou
 Choose the keyboard in **設定… ▸ 輸入方式 ▸ 注音鍵盤**, or straight from the input menu while 注音
 is active. **標準（大千）** is the default: the layout printed on Taiwanese keyboards, and the one
 the original Yahoo! KeyKey shipped. **倚天** puts the symbols on the letters that spell them.
-許氏 and the 26-key layouts are not offered — they put two symbols on one key, which needs
-disambiguation rules this mode does not have.
+**許氏** puts two or three symbols on a key and reads them from the keys around it — see
+[許氏 and 智慧選字](#許氏-hsu-and-智慧選字). The other 26-key layouts (倚天 26 鍵, IBM) are not offered.
 
 Candidates come from the original Yahoo! KeyKey ㄅ半 table (`bpmf-ext.cin`), in its own order —
 the everyday character for a reading leads it, and there is no dictionary re-ranking on top. What
