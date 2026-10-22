@@ -39,6 +39,7 @@ enum Preferences {
         static let strokeConfirmationEnabled = "strokeConfirmationEnabled"
         static let adaptiveCandidateOrderEnabled = "adaptiveCandidateOrderEnabled"
         static let zhuyinLayout = "zhuyinLayout"
+        static let zhuyinSmartEnabled = "zhuyinSmartEnabled"
         static let shiftSpaceFullWidthSpaceEnabled = "shiftSpaceFullWidthSpaceEnabled"
     }
 
@@ -60,6 +61,7 @@ enum Preferences {
             Key.strokeConfirmationEnabled: false,
             Key.adaptiveCandidateOrderEnabled: true,
             Key.zhuyinLayout: ZhuyinLayout.dachen.rawValue,
+            Key.zhuyinSmartEnabled: false,
             Key.shiftSpaceFullWidthSpaceEnabled: false,
         ])
     }
@@ -127,6 +129,14 @@ enum Preferences {
 
     // The 注音 keyboard layout; unknown/absent falls back to 大千 (the registered default), which
     // is both the layout on a Taiwanese keyboard and the one the original Yahoo! KeyKey shipped.
+    // 智慧選字: 注音 composes whole sentences and the language model picks the characters (好打注音),
+    // instead of one character per syllable (ㄅ半). Off by default, so anyone already typing ㄅ半
+    // one character at a time keeps that until they opt in.
+    static var zhuyinSmartEnabled: Bool {
+        get { UserDefaults.standard.bool(forKey: Key.zhuyinSmartEnabled) }
+        set { UserDefaults.standard.set(newValue, forKey: Key.zhuyinSmartEnabled) }
+    }
+
     static var zhuyinLayout: ZhuyinLayout {
         get { ZhuyinLayout(rawValue: UserDefaults.standard.string(forKey: Key.zhuyinLayout) ?? "") ?? .dachen }
         set { UserDefaults.standard.set(newValue.rawValue, forKey: Key.zhuyinLayout) }
