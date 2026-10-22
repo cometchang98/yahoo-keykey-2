@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Intentionally empty. This fork's builds are not signed with the upstream project's Sparkle key,
+     so they must not be offered upstream's updates (which would replace 許氏 / 智慧選字 with the
+     original app). Updates to this fork are manual: download the new release. -->
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>Yahoo! KeyKey 2 (許氏 fork)</title>
+  </channel>
+</rss>
