@@ -17,7 +17,10 @@ A plain-language list of changes in each version, newest first.
   syllable, then longer words — so one character of a word can be changed on its own (太長 →
   太常). 1–9 pick, Space or Return commits the sentence. Characters you pick or accept are
   remembered and lead next time. Turn it off in 設定… ▸ 一般 (or the input menu) to keep the
-  one-character-at-a-time ㄅ半. Nothing changes in 倉頡, 速成 or 拼音.
+  one-character-at-a-time ㄅ半. Nothing changes in 倉頡, 速成 or 拼音. **Backspace** takes only the character you just finished back into 注音 (tone off);
+  after that, and for every character before it, it deletes the whole character. **↓ ↑** walk a
+  highlight through the candidates (paging as they go) and Space or Return pick the highlighted
+  one, as its number would; Esc drops the highlight.
 - **Fixed: a plain `tools/build-app.sh` build no longer crashes at launch.** The ad-hoc signature
   carried the hardened runtime, whose Library Validation refuses the equally ad-hoc
   Sparkle.framework. Only debug builds avoided it. Notarized releases re-sign with the Developer
