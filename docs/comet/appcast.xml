@@ -3,13 +3,13 @@
     <channel>
         <title>YahooKeyKey2</title>
         <item>
-            <title>2.16.4</title>
-            <pubDate>Fri, 23 Oct 2026 19:09:54 +0800</pubDate>
-            <sparkle:version>254</sparkle:version>
-            <sparkle:shortVersionString>2.16.4</sparkle:shortVersionString>
+            <title>2.16.5</title>
+            <pubDate>Sat, 24 Oct 2026 22:36:56 +0800</pubDate>
+            <sparkle:version>257</sparkle:version>
+            <sparkle:shortVersionString>2.16.5</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/cometchang98/yahoo-keykey-2/releases/download/comet-v2.16.4-hsu/YahooKeyKey2-Comet-Hsu-Smart-2.16.4.zip" length="5076997" type="application/octet-stream" sparkle:edSignature="EubCIL/CWPu9EY1SUUW4f1mmwTt3OMDu3m+MsODmn2vnNbhfPdJ82d3yp0cpNCgklmApH/hW5ZLvf4AAmp3WCw=="/>
+            <enclosure url="https://github.com/cometchang98/yahoo-keykey-2/releases/download/comet-v2.16.5-hsu/YahooKeyKey2-Comet-Hsu-Smart-2.16.5.zip" length="5077131" type="application/octet-stream" sparkle:edSignature="cdLX5ZHCXMdLMyhk4aXWr6vmM43AxkQi55uk8PpfZF5R68+2mJwkzMedmuLnEF5j983bdVcMpWEhz2XKheNFCg=="/>
         </item>
     </channel>
 </rss>
