@@ -21,6 +21,7 @@ A plain-language list of changes in each version, newest first.
   after that, and for every character before it, it deletes the whole character. **↓ ↑** walk a
   highlight through the candidates (paging as they go) and Space or Return pick the highlighted
   one, as its number would; Esc drops the highlight.
+  Fixed: on a later page of candidates the number keys now pick from the page shown, not page 1.
 - **Fixed: a plain `tools/build-app.sh` build no longer crashes at launch.** The ad-hoc signature
   carried the hardened runtime, whose Library Validation refuses the equally ad-hoc
   Sparkle.framework. Only debug builds avoided it. Notarized releases re-sign with the Developer
